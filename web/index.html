@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MerMer 梅墨域 - 像素肉鸽</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- 加载界面 -->
+    <div id="loadingScreen" class="screen active"
+        style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div style="text-align: center; color: white;">
+            <h1 style="font-size: 48px; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">MerMer</h1>
+            <p style="font-size: 20px; margin-bottom: 30px;">梅墨域</p>
+            <div
+                style="width: 200px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden; margin: 0 auto;">
+                <div id="loadingBar" style="width: 0%; height: 100%; background: white; transition: width 0.3s;"></div>
+            </div>
+            <p id="loadingText" style="margin-top: 15px; font-size: 14px; opacity: 0.8;">正在初始化...</p>
+        </div>
+    </div>
+
+    <!-- 主菜单 -->
+    <div id="mainMenu" class="screen">
+        <div class="menu-content">
+            <h1 class="game-title">MerMer</h1>
+            <p class="game-subtitle">梅墨域</p>
+            <div class="menu-buttons">
+                <button class="btn btn-primary" onclick="game.startRun()">
+                    <span class="icon">▶</span> 普通模式
+                </button>
+                <button class="btn btn-secondary" onclick="game.startEndlessMode()">
+                    <span class="icon">∞</span> 无尽模式
+                </button>
+                <button class="btn btn-tertiary" onclick="game.showStats()">
+                    <span class="icon">⚙</span> 统计
+                </button>
+            </div>
+            <div class="stats-display">
+                <p>记忆币: <span id="totalCoins">0</span></p>
+                <p>总局数: <span id="totalRuns">0</span> | 胜利: <span id="victories">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 职业选择界面 -->
+    <div id="classSelectScreen" class="screen">
+        <div class="class-select-content">
+            <h2>选择你的职业</h2>
+            <p class="subtitle">不同的职业拥有独特的战斗方式</p>
+            <div id="classCards" class="class-cards"></div>
+        </div>
+    </div>
+
+    <!-- 职业进阶界面 -->
+    <div id="classAdvanceScreen" class="screen">
+        <div class="class-advance-content">
+            <h2>职业进阶</h2>
+            <p class="subtitle">恭喜通过Boss考验！<span id="currentClassName"></span> 可以进阶了</p>
+            <div id="advanceCards" class="class-cards"></div>
+        </div>
+    </div>
+
+    <!-- 游戏界面 -->
+    <div id="gameScreen" class="screen">
+        <!-- HUD -->
+        <div class="hud">
+            <div class="hud-left">
+                <div class="health-bar">
+                    <span class="icon">❤</span>
+                    <div class="bar">
+                        <div id="healthFill" class="bar-fill"></div>
+                    </div>
+                    <span id="healthText">100/100</span>
+                </div>
+                <div class="coins">
+                    <span class="icon">🪙</span>
+                    <span id="coinsText">0</span>
+                </div>
+                <div class="floor">
+                    <span>层数: <span id="floorText">1</span></span>
+                </div>
+            </div>
+            <div class="hud-right">
+                <button class="icon-btn" onclick="game.pause()">⏸</button>
+            </div>
+        </div>
+
+        <!-- 游戏画布 -->
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- 控制提示 -->
+        <div class="controls-hint">
+            <p>WASD 或 方向键移动 | 鼠标点击攻击 | 空格键冲刺</p>
+        </div>
+    </div>
+
+    <!-- 奖励选择界面 -->
+    <div id="rewardScreen" class="screen">
+        <div class="reward-content">
+            <h2>选择记忆强化</h2>
+            <p class="subtitle">记忆碎片已净化，选择一项能力提升</p>
+            <div id="rewardCards" class="reward-cards"></div>
+        </div>
+    </div>
+
+    <!-- 休息站界面 -->
+    <div id="restScreen" class="screen">
+        <div class="rest-content">
+            <h2>休息站</h2>
+            <div class="coins-display">
+                <span class="icon">🪙</span>
+                <span id="restCoins">0</span>
+            </div>
+
+            <div class="rest-section">
+                <h3>⚡ 战利品选择 (免费)</h3>
+                <div id="freeRewards" class="reward-cards"></div>
+            </div>
+
+            <div class="rest-section">
+                <h3>🛒 黑市交易 (消耗金币)</h3>
+                <div id="shopItems" class="shop-items"></div>
+            </div>
+
+            <button class="btn btn-primary btn-large" onclick="game.nextRoom()">
+                前往下一层 →
+            </button>
+            <button class="btn btn-secondary" onclick="game.backToMenu()" style="margin-top: 10px;">
+                返回主菜单
+            </button>
+        </div>
+    </div>
+
+    <!-- 胜利界面 -->
+    <div id="victoryScreen" class="screen">
+        <div class="end-content">
+            <div class="skull-icon">👑</div>
+            <h2>恭喜通关！</h2>
+            <p class="flavor-text">你已成功征服了第10层，但深渊仍在召唤...</p>
+
+            <div class="stats-box">
+                <div class="stat-row">
+                    <span>击杀敌人</span>
+                    <span id="victoryKills" class="stat-value">0</span>
+                </div>
+                <div class="stat-row highlight">
+                    <span>获得金币</span>
+                    <span id="victoryCoins" class="stat-value">0</span>
+                </div>
+            </div>
+
+            <div class="end-buttons">
+                <button class="btn btn-primary" onclick="game.enterEndlessMode()">
+                    ∞ 继续挑战 (无尽模式)
+                </button>
+                <button class="btn btn-secondary" onclick="game.endRunVictory()">
+                    🏆 载入史册并返回
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 死亡/结算界面 -->
+    <div id="endScreen" class="screen">
+        <div class="end-content">
+            <div class="skull-icon">💀</div>
+            <h2 id="endTitle">已死亡</h2>
+            <p id="endFlavor" class="flavor-text"></p>
+
+            <div class="stats-box">
+                <div class="stat-row">
+                    <span>探索层数</span>
+                    <span id="endFloor" class="stat-value">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>击杀敌人</span>
+                    <span id="endKills" class="stat-value">0</span>
+                </div>
+                <div class="stat-row highlight">
+                    <span>获得金币</span>
+                    <span id="endCoins" class="stat-value">0</span>
+                </div>
+            </div>
+
+            <div class="end-buttons">
+                <button class="btn btn-primary" onclick="game.startRun()">
+                    🔄 重新开始
+                </button>
+                <button class="btn btn-secondary" onclick="game.backToMenu()">
+                    🏠 返回主页
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 暂停菜单 -->
+    <div id="pauseMenu" class="overlay">
+        <div class="pause-content">
+            <h2>暂停</h2>
+            <button class="btn btn-primary" onclick="game.resume()">继续游戏</button>
+            <button class="btn btn-secondary" onclick="game.backToMenu()">返回主菜单</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+
+</html>
