@@ -1882,6 +1882,12 @@ class Game {
         this.isGameLoopRunning = false; // 标记游戏循环是否已启动
         this.endless = false; // 无尽模式标志
 
+        // 帧率控制（锁定60fps逻辑更新）
+        this.targetFPS = 60;
+        this.frameInterval = 1000 / this.targetFPS; // 16.667ms
+        this.lastFrameTime = 0;
+        this.accumulator = 0;
+
         // 音乐系统
         this.music = new MusicManager();
 
@@ -2162,21 +2168,36 @@ class Game {
     startGameLoop() {
         if (this.isGameLoopRunning) return; // 防止重复启动
         this.isGameLoopRunning = true;
-        this.gameLoop();
+        this.lastFrameTime = performance.now();
+        this.accumulator = 0;
+        requestAnimationFrame((timestamp) => this.gameLoop(timestamp));
     }
 
-    gameLoop() {
+    gameLoop(timestamp) {
         try {
+            // 计算帧间隔时间
+            const deltaTime = timestamp - this.lastFrameTime;
+            this.lastFrameTime = timestamp;
+
+            // 防止极端情况（切换标签页后回来等）
+            const clampedDelta = Math.min(deltaTime, 200);
+
+            // 累积时间，按固定步长（16.667ms = 60fps）更新游戏逻辑
+            this.accumulator += clampedDelta;
+
             // 只在playing状态且未暂停时更新游戏逻辑
             if (this.state === 'playing' && !this.isPaused) {
-                this.update();
+                // 按60fps步长消耗累积时间
+                while (this.accumulator >= this.frameInterval) {
+                    this.update();
+                    this.accumulator -= this.frameInterval;
+                }
+                // 每个渲染帧都绘制（保持视觉平滑）
                 this.render();
                 this.updateHUD();
             } else {
-                // 调试：显示当前状态
-                if (this.state !== 'playing') {
-                    // console.log('⏸️ gameLoop运行中但state不是playing:', this.state);
-                }
+                // 非playing状态也要消耗累积时间，防止切回时爆发更新
+                this.accumulator = 0;
             }
         } catch (error) {
             console.error('❌ gameLoop 发生错误:', error);
@@ -2187,7 +2208,7 @@ class Game {
         }
 
         // 无论什么状态都要保持游戏循环运行
-        requestAnimationFrame(() => this.gameLoop());
+        requestAnimationFrame((timestamp) => this.gameLoop(timestamp));
     }
 
     update() {
