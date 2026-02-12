@@ -68,10 +68,11 @@ const CLASSES = {
         name: '战士',
         icon: '⚔️',
         desc: '近战高攻，生命值高',
+        skill: '挥砍 — 大范围弧形斩击',
         baseHp: 120,
         baseDamage: 25,
         baseSpeed: 2.8,
-        weaponType: 'slash', // 挥砍攻击
+        weaponType: 'slash',
         weaponColor: '#ef4444',
         advances: ['berserker', 'paladin']
     },
@@ -80,10 +81,11 @@ const CLASSES = {
         name: '法师',
         icon: '🔮',
         desc: '远程魔法，攻速快',
+        skill: '魔法弹 — 高速远程投射',
         baseHp: 80,
         baseDamage: 30,
         baseSpeed: 3.2,
-        weaponType: 'magic', // 魔法弹
+        weaponType: 'magic',
         weaponColor: '#a855f7',
         advances: ['archmage', 'elementalist']
     },
@@ -92,12 +94,52 @@ const CLASSES = {
         name: '游侠',
         icon: '🎯',
         desc: '灵活机动，多段攻击',
+        skill: '扇形三连射 — 箭矢散射',
         baseHp: 100,
         baseDamage: 20,
         baseSpeed: 3.5,
-        weaponType: 'projectile', // 弹幕
+        weaponType: 'projectile',
         weaponColor: '#10b981',
         advances: ['sniper', 'shadowblade']
+    },
+    beastmaster: {
+        id: 'beastmaster',
+        name: '牛哥',
+        icon: '🐂',
+        desc: '召唤猛牛冲撞，驯兽为战',
+        skill: '召唤牛 — 牛朝敌人冲锋',
+        baseHp: 110,
+        baseDamage: 18,
+        baseSpeed: 2.6,
+        weaponType: 'summon_bull',
+        weaponColor: '#92400e',
+        advances: ['bullking', 'wildlord']
+    },
+    priest: {
+        id: 'priest',
+        name: '祭司',
+        icon: '💫',
+        desc: '神圣光芒，攻击同时治疗',
+        skill: '圣光弹 — 命中回复少量HP',
+        baseHp: 95,
+        baseDamage: 22,
+        baseSpeed: 2.9,
+        weaponType: 'holy',
+        weaponColor: '#facc15',
+        advances: ['bishop', 'oracle']
+    },
+    ninja: {
+        id: 'ninja',
+        name: '忍者',
+        icon: '🌀',
+        desc: '极速手里剑，闪避如风',
+        skill: '手里剑 — 极速连发飞镖',
+        baseHp: 75,
+        baseDamage: 15,
+        baseSpeed: 4.0,
+        weaponType: 'shuriken',
+        weaponColor: '#64748b',
+        advances: ['kage', 'samurai']
     }
 };
 
@@ -107,6 +149,7 @@ const ADVANCED_CLASSES = {
         name: '狂战士',
         icon: '🔥',
         desc: '狂暴之力，伤害暴增',
+        skill: '重斩 — 超级重型挥砍',
         baseHp: 140,
         baseDamage: 35,
         baseSpeed: 3.0,
@@ -119,6 +162,7 @@ const ADVANCED_CLASSES = {
         name: '圣骑士',
         icon: '✨',
         desc: '圣光守护，自带治疗',
+        skill: '圣光斩 — 神圣近战斩击',
         baseHp: 150,
         baseDamage: 28,
         baseSpeed: 2.8,
@@ -131,6 +175,7 @@ const ADVANCED_CLASSES = {
         name: '大法师',
         icon: '⚡',
         desc: '魔力激增，弹幕更密',
+        skill: '奥术弹幕 — 密集魔法弹',
         baseHp: 90,
         baseDamage: 40,
         baseSpeed: 3.2,
@@ -143,6 +188,7 @@ const ADVANCED_CLASSES = {
         name: '元素使',
         icon: '🌊',
         desc: '元素融合，附加效果',
+        skill: '元素弹 — 多元素融合攻击',
         baseHp: 85,
         baseDamage: 32,
         baseSpeed: 3.3,
@@ -155,6 +201,7 @@ const ADVANCED_CLASSES = {
         name: '狙击手',
         icon: '🎯',
         desc: '精准射击，暴击率高',
+        skill: '狙击 — 超远程穿透射击',
         baseHp: 95,
         baseDamage: 45,
         baseSpeed: 3.4,
@@ -167,12 +214,91 @@ const ADVANCED_CLASSES = {
         name: '影刃',
         icon: '🗡️',
         desc: '暗影刺客，暴击必杀',
+        skill: '暗影飞刃 — 极速穿刺',
         baseHp: 105,
         baseDamage: 25,
         baseSpeed: 4.0,
         weaponType: 'shadow',
         weaponColor: '#6366f1',
         from: 'ranger'
+    },
+    bullking: {
+        id: 'bullking',
+        name: '牛魔王',
+        icon: '👑🐂',
+        desc: '牛群暴走，大范围碾压',
+        skill: '牛群冲锋 — 召唤多头牛',
+        baseHp: 140,
+        baseDamage: 28,
+        baseSpeed: 2.8,
+        weaponType: 'summon_herd',
+        weaponColor: '#78350f',
+        from: 'beastmaster'
+    },
+    wildlord: {
+        id: 'wildlord',
+        name: '荒野之主',
+        icon: '🦁',
+        desc: '驯服万兽，多种召唤',
+        skill: '万兽齐奔 — 随机野兽突袭',
+        baseHp: 120,
+        baseDamage: 22,
+        baseSpeed: 3.0,
+        weaponType: 'summon_wild',
+        weaponColor: '#65a30d',
+        from: 'beastmaster'
+    },
+    bishop: {
+        id: 'bishop',
+        name: '大主教',
+        icon: '✝️',
+        desc: '圣光普照，范围治愈',
+        skill: '圣光爆发 — 大范围神圣伤害',
+        baseHp: 110,
+        baseDamage: 30,
+        baseSpeed: 2.9,
+        weaponType: 'holy_burst',
+        weaponColor: '#eab308',
+        from: 'priest'
+    },
+    oracle: {
+        id: 'oracle',
+        name: '神谕者',
+        icon: '🔮✨',
+        desc: '预见命运，追踪导弹',
+        skill: '神谕之箭 — 自动追踪敌人',
+        baseHp: 90,
+        baseDamage: 35,
+        baseSpeed: 3.1,
+        weaponType: 'homing',
+        weaponColor: '#d946ef',
+        from: 'priest'
+    },
+    kage: {
+        id: 'kage',
+        name: '影',
+        icon: '👤',
+        desc: '分身幻术，难以捕捉',
+        skill: '影分身 — 多方向手里剑',
+        baseHp: 80,
+        baseDamage: 20,
+        baseSpeed: 4.5,
+        weaponType: 'shadow_clone',
+        weaponColor: '#1e1b4b',
+        from: 'ninja'
+    },
+    samurai: {
+        id: 'samurai',
+        name: '侍',
+        icon: '⛩️',
+        desc: '一刀必杀，武士之道',
+        skill: '居合斩 — 蓄力超远斩击',
+        baseHp: 100,
+        baseDamage: 40,
+        baseSpeed: 3.5,
+        weaponType: 'iai_slash',
+        weaponColor: '#dc2626',
+        from: 'ninja'
     }
 };
 
@@ -496,6 +622,35 @@ class Player extends Entity {
                     this.shootCooldown = this.getAdjustedCooldown(10); // 影刃快攻
                     break;
 
+                case 'summon_bull': // 牛哥-召唤牛
+                case 'summon_herd': // 牛魔王-牛群
+                case 'summon_wild': // 荒野之主-万兽
+                    this.createSummonAttack(dirX, dirY, bullets, gameInstance);
+                    this.shootCooldown = this.getAdjustedCooldown(this.weaponType === 'summon_herd' ? 28 : this.weaponType === 'summon_wild' ? 25 : 35);
+                    break;
+
+                case 'holy': // 祭司-圣光弹
+                case 'holy_burst': // 大主教-圣光爆发
+                    this.createHolyAttack(dirX, dirY, bullets, gameInstance);
+                    this.shootCooldown = this.getAdjustedCooldown(this.weaponType === 'holy_burst' ? 22 : 20);
+                    break;
+
+                case 'homing': // 神谕者-追踪弹
+                    this.createHomingAttack(dirX, dirY, bullets, gameInstance);
+                    this.shootCooldown = this.getAdjustedCooldown(30);
+                    break;
+
+                case 'shuriken': // 忍者-手里剑
+                case 'shadow_clone': // 影-影分身
+                    this.createShurikenAttack(dirX, dirY, bullets);
+                    this.shootCooldown = this.getAdjustedCooldown(this.weaponType === 'shadow_clone' ? 6 : 8);
+                    break;
+
+                case 'iai_slash': // 侍-居合斩
+                    this.createIaiSlash(dirX, dirY, bullets, gameInstance);
+                    this.shootCooldown = this.getAdjustedCooldown(45);
+                    break;
+
                 default:
                     const bullet = new Bullet(this.x, this.y, dirX, dirY, this.damage, true, this.weaponColor);
                     bullets.push(bullet);
@@ -663,6 +818,184 @@ class Player extends Entity {
         }
     }
 
+    // ===== 牛哥系 - 召唤攻击 =====
+    createSummonAttack(dirX, dirY, bullets, gameInstance) {
+        const angle = Math.atan2(dirY, dirX);
+        let summonCount = 1;
+        if (this.weaponType === 'summon_herd') summonCount = 3;
+        else if (this.weaponType === 'summon_wild') summonCount = 2;
+
+        const multiShot = this.multiShot || 1;
+        summonCount += (multiShot - 1);
+        const damageReduction = Math.pow(0.7, multiShot - 1);
+
+        for (let i = 0; i < summonCount; i++) {
+            const spread = (i - (summonCount - 1) / 2) * 0.3;
+            const a = angle + spread;
+            const bull = new Bullet(this.x, this.y, Math.cos(a), Math.sin(a),
+                this.damage * 1.5 * damageReduction * (this.bulletDamageMult || 1),
+                true, this.weaponColor,
+                this.weaponType === 'summon_wild' ? 'wild_beast' : 'bull', 350);
+            bull.size = this.weaponType === 'summon_herd' ? 18 : 22;
+            bull.vx *= 0.8; // 牛跑得稍慢但伤害高
+            bull.vy *= 0.8;
+            bull.lifeTime = 80;
+            bull.canPierce = true; // 牛可以碾压多个敌人
+            bullets.push(bull);
+        }
+    }
+
+    // ===== 祭司系 - 圣光攻击 =====
+    createHolyAttack(dirX, dirY, bullets, gameInstance) {
+        const rangeLimit = this.rangedRange || 350;
+        const multiShot = this.multiShot || 1;
+        const damageReduction = Math.pow(0.5, multiShot - 1);
+
+        if (this.weaponType === 'holy_burst') {
+            // 大主教：8方向圣光爆发
+            const count = 8 + (multiShot - 1) * 4;
+            for (let i = 0; i < count; i++) {
+                const a = (Math.PI * 2 / count) * i;
+                const bullet = new Bullet(this.x, this.y, Math.cos(a), Math.sin(a),
+                    this.damage * 0.6 * damageReduction * (this.bulletDamageMult || 1),
+                    true, this.weaponColor, 'holy_orb', rangeLimit);
+                bullet.size = 7 * (this.bulletSizeMult || 1);
+                bullet.healOnHit = 2; // 命中回血
+                bullets.push(bullet);
+            }
+        } else {
+            // 祭司：单发圣光弹，命中回血
+            const spreadCount = 1 + (multiShot - 1) * 2;
+            for (let i = 0; i < spreadCount; i++) {
+                const offset = (i - (spreadCount - 1) / 2) * 0.15;
+                const angle = Math.atan2(dirY, dirX) + offset;
+                const bullet = new Bullet(this.x, this.y, Math.cos(angle), Math.sin(angle),
+                    this.damage * damageReduction * (this.bulletDamageMult || 1),
+                    true, this.weaponColor, 'holy_orb', rangeLimit);
+                bullet.size = 10 * (this.bulletSizeMult || 1);
+                bullet.healOnHit = 3; // 命中回血
+                bullet.vx *= 1.2;
+                bullet.vy *= 1.2;
+                bullets.push(bullet);
+            }
+        }
+    }
+
+    // ===== 神谕者 - 追踪弹 =====
+    createHomingAttack(dirX, dirY, bullets, gameInstance) {
+        const rangeLimit = this.rangedRange || 400;
+        const multiShot = this.multiShot || 1;
+        const count = 2 + (multiShot - 1) * 2;
+        const damageReduction = Math.pow(0.5, multiShot - 1);
+
+        for (let i = 0; i < count; i++) {
+            const offset = (i - (count - 1) / 2) * 0.4;
+            const angle = Math.atan2(dirY, dirX) + offset;
+            const bullet = new Bullet(this.x, this.y, Math.cos(angle), Math.sin(angle),
+                this.damage * 0.8 * damageReduction * (this.bulletDamageMult || 1),
+                true, this.weaponColor, 'homing', rangeLimit);
+            bullet.size = 8 * (this.bulletSizeMult || 1);
+            bullet.isHoming = true;
+            bullet.vx *= 0.9;
+            bullet.vy *= 0.9;
+            bullets.push(bullet);
+        }
+    }
+
+    // ===== 忍者系 - 手里剑 =====
+    createShurikenAttack(dirX, dirY, bullets) {
+        const rangeLimit = this.rangedRange || 320;
+        const multiShot = this.multiShot || 1;
+        const damageReduction = Math.pow(0.5, multiShot - 1);
+
+        if (this.weaponType === 'shadow_clone') {
+            // 影分身：4方向同时发射
+            const baseAngle = Math.atan2(dirY, dirX);
+            const count = 4 + (multiShot - 1) * 2;
+            for (let i = 0; i < count; i++) {
+                const a = baseAngle + (Math.PI * 2 / count) * i;
+                const bullet = new Bullet(this.x, this.y, Math.cos(a), Math.sin(a),
+                    this.damage * 0.5 * damageReduction * (this.bulletDamageMult || 1),
+                    true, this.weaponColor, 'shuriken', rangeLimit);
+                bullet.size = 6 * (this.bulletSizeMult || 1);
+                bullet.vx *= 2.0;
+                bullet.vy *= 2.0;
+                bullets.push(bullet);
+            }
+        } else {
+            // 忍者：快速双发
+            const spreadCount = 2 + (multiShot - 1) * 2;
+            for (let i = 0; i < spreadCount; i++) {
+                const offset = (i - (spreadCount - 1) / 2) * 0.1;
+                const angle = Math.atan2(dirY, dirX) + offset;
+                const bullet = new Bullet(this.x, this.y, Math.cos(angle), Math.sin(angle),
+                    this.damage * damageReduction * (this.bulletDamageMult || 1),
+                    true, this.weaponColor, 'shuriken', rangeLimit);
+                bullet.size = 6 * (this.bulletSizeMult || 1);
+                bullet.vx *= 2.2;
+                bullet.vy *= 2.2;
+                bullets.push(bullet);
+            }
+        }
+    }
+
+    // ===== 侍 - 居合斩 =====
+    createIaiSlash(dirX, dirY, bullets, gameInstance) {
+        // 超远距离直线斩击
+        const angle = Math.atan2(dirY, dirX);
+        const slashRange = 200;
+        const game = gameInstance || (typeof window !== 'undefined' && window.game);
+
+        if (game && game.enemies) {
+            for (let i = game.enemies.length - 1; i >= 0; i--) {
+                const enemy = game.enemies[i];
+                const dx = enemy.x - this.x;
+                const dy = enemy.y - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist <= slashRange) {
+                    const enemyAngle = Math.atan2(dy, dx);
+                    let angleDiff = enemyAngle - angle;
+                    while (angleDiff > Math.PI) angleDiff -= Math.PI * 2;
+                    while (angleDiff < -Math.PI) angleDiff += Math.PI * 2;
+                    if (Math.abs(angleDiff) <= 0.35) { // 窄范围高伤
+                        const isCrit = Math.random() < (this.critChance + 0.2); // 额外20%暴击
+                        const critMult = this.critMultiplier || 2.5;
+                        const dmg = this.damage * 2.5 * (isCrit ? critMult : 1);
+                        if (enemy.takeDamage(dmg)) {
+                            for (let k = 0; k < 12; k++) {
+                                game.particles.push(new Particle(enemy.x, enemy.y, enemy.color));
+                            }
+                            game.enemies.splice(i, 1);
+                            game.stats.kills++;
+                            this.onKillEnemy();
+                            const coinDrop = (enemy.isBoss ? 15 : 5) + Math.floor(Math.random() * 5);
+                            this.coins += coinDrop;
+                            game.stats.coinsEarned += coinDrop;
+                            game.damageTexts.push(new DamageText(enemy.x, enemy.y + 10, '+' + coinDrop + '🪙', '#fbbf24'));
+                            if (this.lifeSteal > 0) this.heal(dmg * this.lifeSteal);
+                        }
+                        game.damageTexts.push(new DamageText(enemy.x, enemy.y - 10,
+                            Math.floor(dmg).toString(), isCrit ? '#fbbf24' : '#fff', isCrit));
+                    }
+                }
+            }
+        }
+
+        // 居合斩视觉特效 — 长条光线
+        const slashBullet = new Bullet(
+            this.x + dirX * 40, this.y + dirY * 40,
+            dirX * 0.1, dirY * 0.1,
+            0, true, '#dc2626', 'iai_visual'
+        );
+        slashBullet.slashAngle = angle;
+        slashBullet.slashRange = slashRange;
+        slashBullet.originX = this.x;
+        slashBullet.originY = this.y;
+        slashBullet.lifeTime = 10;
+        slashBullet.size = 0;
+        bullets.push(slashBullet);
+    }
+
     heal(amount) {
         this.hp = Math.min(this.maxHp, this.hp + amount);
     }
@@ -723,6 +1056,12 @@ class Player extends Entity {
             this.drawMageModel(ctx, classId);
         } else if (classId === 'ranger' || classId === 'sniper' || classId === 'shadowblade' || from === 'ranger') {
             this.drawRangerModel(ctx, classId);
+        } else if (classId === 'beastmaster' || classId === 'bullking' || classId === 'wildlord' || from === 'beastmaster') {
+            this.drawBeastmasterModel(ctx, classId);
+        } else if (classId === 'priest' || classId === 'bishop' || classId === 'oracle' || from === 'priest') {
+            this.drawPriestModel(ctx, classId);
+        } else if (classId === 'ninja' || classId === 'kage' || classId === 'samurai' || from === 'ninja') {
+            this.drawNinjaModel(ctx, classId);
         } else {
             this.drawWarriorModel(ctx, classId);
         }
@@ -1030,6 +1369,228 @@ class Player extends Entity {
             ctx.beginPath();
             ctx.arc(px, py, 22, 0, Math.PI * 2);
             ctx.fill();
+            ctx.restore();
+        }
+    }
+
+    // ===== 牛哥/驯兽师系模型 =====
+    drawBeastmasterModel(ctx, classId) {
+        const px = Math.floor(this.x);
+        const py = Math.floor(this.y);
+
+        let mainColor, darkColor, accentColor;
+        if (classId === 'bullking') {
+            mainColor = '#78350f'; darkColor = '#451a03'; accentColor = '#fbbf24';
+        } else if (classId === 'wildlord') {
+            mainColor = '#365314'; darkColor = '#1a2e05'; accentColor = '#84cc16';
+        } else {
+            mainColor = '#92400e'; darkColor = '#78350f'; accentColor = '#f59e0b';
+        }
+
+        // 粗壮身体
+        ctx.fillStyle = darkColor;
+        ctx.fillRect(px - 13, py - 8, 26, 24);
+        // 披风毛皮
+        ctx.fillStyle = mainColor;
+        ctx.fillRect(px - 11, py - 6, 22, 18);
+        // 头部
+        ctx.fillStyle = '#fde68a';
+        ctx.fillRect(px - 7, py - 14, 14, 10);
+        // 眼睛
+        ctx.fillStyle = '#1a1a1a';
+        ctx.fillRect(px - 4, py - 9, 3, 3);
+        ctx.fillRect(px + 1, py - 9, 3, 3);
+        // 牛角头饰
+        ctx.fillStyle = accentColor;
+        ctx.fillRect(px - 10, py - 16, 4, 5);
+        ctx.fillRect(px + 6, py - 16, 4, 5);
+        ctx.fillRect(px - 12, py - 18, 3, 4);
+        ctx.fillRect(px + 9, py - 18, 3, 4);
+        // 鞭子/绳索（右手）
+        ctx.strokeStyle = accentColor;
+        ctx.lineWidth = 2;
+        const whipSway = Math.sin(Date.now() / 200) * 8;
+        ctx.beginPath();
+        ctx.moveTo(px + 14, py + 2);
+        ctx.quadraticCurveTo(px + 22 + whipSway, py - 5, px + 18 + whipSway, py - 15);
+        ctx.stroke();
+        // 腿
+        ctx.fillStyle = darkColor;
+        ctx.fillRect(px - 8, py + 12, 6, 7);
+        ctx.fillRect(px + 2, py + 12, 6, 7);
+        // 牛魔王王冠
+        if (classId === 'bullking') {
+            ctx.fillStyle = '#fbbf24';
+            ctx.fillRect(px - 5, py - 19, 10, 4);
+            ctx.fillRect(px - 3, py - 22, 2, 4);
+            ctx.fillRect(px + 1, py - 22, 2, 4);
+        }
+        // 荒野之主绿光环
+        if (classId === 'wildlord') {
+            ctx.save();
+            ctx.globalAlpha = 0.2 + Math.sin(Date.now() / 300) * 0.1;
+            ctx.strokeStyle = '#84cc16';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(px, py, 24, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.restore();
+        }
+    }
+
+    // ===== 祭司系模型 =====
+    drawPriestModel(ctx, classId) {
+        const px = Math.floor(this.x);
+        const py = Math.floor(this.y);
+
+        let robeColor, robeDark, glowColor;
+        if (classId === 'bishop') {
+            robeColor = '#fef3c7'; robeDark = '#fbbf24'; glowColor = '#eab308';
+        } else if (classId === 'oracle') {
+            robeColor = '#e9d5ff'; robeDark = '#a855f7'; glowColor = '#d946ef';
+        } else {
+            robeColor = '#fef9c3'; robeDark = '#facc15'; glowColor = '#eab308';
+        }
+
+        // 白色长袍（A字形）
+        ctx.fillStyle = robeColor;
+        ctx.beginPath();
+        ctx.moveTo(px - 8, py - 2);
+        ctx.lineTo(px + 8, py - 2);
+        ctx.lineTo(px + 12, py + 18);
+        ctx.lineTo(px - 12, py + 18);
+        ctx.closePath();
+        ctx.fill();
+        // 袍带
+        ctx.fillStyle = robeDark;
+        ctx.fillRect(px - 6, py + 3, 12, 3);
+        // 十字中心
+        ctx.fillStyle = robeDark;
+        ctx.fillRect(px - 1, py + 0, 2, 14);
+        ctx.fillRect(px - 4, py + 5, 8, 2);
+        // 头部
+        ctx.fillStyle = '#fde68a';
+        ctx.fillRect(px - 6, py - 10, 12, 10);
+        // 头冠/兜帽
+        ctx.fillStyle = robeColor;
+        ctx.fillRect(px - 8, py - 14, 16, 6);
+        ctx.fillStyle = robeDark;
+        ctx.fillRect(px - 2, py - 15, 4, 4); // 十字顶
+        ctx.fillRect(px - 4, py - 13, 8, 2);
+        // 眼睛
+        ctx.fillStyle = glowColor;
+        ctx.fillRect(px - 3, py - 6, 2, 2);
+        ctx.fillRect(px + 1, py - 6, 2, 2);
+        // 法杖
+        ctx.fillStyle = '#d4d4d8';
+        ctx.fillRect(px - 16, py - 12, 2, 30);
+        // 法杖顶端圣光球
+        ctx.save();
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = glowColor;
+        ctx.fillStyle = glowColor;
+        ctx.beginPath();
+        ctx.arc(px - 15, py - 14, 5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(px - 15, py - 14, 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+        // 大主教光环
+        if (classId === 'bishop') {
+            ctx.save();
+            ctx.globalAlpha = 0.3 + Math.sin(Date.now() / 250) * 0.15;
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = '#fbbf24';
+            ctx.strokeStyle = '#fbbf24';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(px, py, 24, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.restore();
+        }
+        // 神谕者眼球特效
+        if (classId === 'oracle') {
+            ctx.save();
+            const t = Date.now() / 300;
+            ctx.globalAlpha = 0.5;
+            ctx.fillStyle = '#d946ef';
+            ctx.beginPath();
+            ctx.arc(px, py - 20, 4 + Math.sin(t) * 1, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ctx.arc(px, py - 20, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+
+    // ===== 忍者系模型 =====
+    drawNinjaModel(ctx, classId) {
+        const px = Math.floor(this.x);
+        const py = Math.floor(this.y);
+
+        let mainColor, darkColor, accentColor;
+        if (classId === 'kage') {
+            mainColor = '#1e1b4b'; darkColor = '#0f0a2e'; accentColor = '#818cf8';
+        } else if (classId === 'samurai') {
+            mainColor = '#7f1d1d'; darkColor = '#450a0a'; accentColor = '#dc2626';
+        } else {
+            mainColor = '#1f2937'; darkColor = '#111827'; accentColor = '#64748b';
+        }
+
+        // 紧身衣身体（瘦小灵活）
+        ctx.fillStyle = mainColor;
+        ctx.fillRect(px - 7, py - 4, 14, 14);
+        // 头巾
+        ctx.fillStyle = darkColor;
+        ctx.fillRect(px - 8, py - 14, 16, 12);
+        // 面具（只露眼睛）
+        ctx.fillStyle = mainColor;
+        ctx.fillRect(px - 6, py - 10, 12, 4);
+        // 发光眼睛
+        ctx.fillStyle = accentColor;
+        ctx.fillRect(px - 4, py - 8, 3, 2);
+        ctx.fillRect(px + 1, py - 8, 3, 2);
+        // 飘带（头巾尾部）
+        const bandSway = Math.sin(Date.now() / 200) * 4;
+        ctx.fillStyle = accentColor;
+        ctx.fillRect(px + 8, py - 12 + bandSway * 0.3, 8, 3);
+        ctx.fillRect(px + 12, py - 10 + bandSway * 0.5, 6, 3);
+        // 腿
+        ctx.fillStyle = darkColor;
+        ctx.fillRect(px - 6, py + 10, 5, 8);
+        ctx.fillRect(px + 1, py + 10, 5, 8);
+
+        if (classId === 'samurai') {
+            // 武士刀（长且发光）
+            ctx.fillStyle = '#e5e7eb';
+            ctx.save();
+            ctx.translate(px + 8, py - 18);
+            ctx.rotate(0.2);
+            ctx.fillRect(0, 0, 3, 28);
+            ctx.fillStyle = accentColor;
+            ctx.fillRect(-1, 26, 5, 4); // 刀柄
+            ctx.restore();
+        } else {
+            // 手里剑（手持）
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillRect(px - 14, py - 2, 6, 2);
+            ctx.fillRect(px - 12, py - 4, 2, 6);
+            // 右手手里剑
+            ctx.fillRect(px + 10, py - 2, 6, 2);
+            ctx.fillRect(px + 12, py - 4, 2, 6);
+        }
+
+        // 影分身残影
+        if (classId === 'kage') {
+            ctx.save();
+            ctx.globalAlpha = 0.15;
+            ctx.fillStyle = accentColor;
+            ctx.fillRect(px - 10 + Math.sin(Date.now() / 150) * 3, py - 6, 14, 14);
+            ctx.fillRect(px + 3 - Math.sin(Date.now() / 150) * 3, py - 6, 14, 14);
             ctx.restore();
         }
     }
@@ -1544,6 +2105,38 @@ class Bullet extends Entity {
     }
 
     update(game = null) {
+        // 追踪弹逻辑
+        if (this.isHoming && game && game.enemies && game.enemies.length > 0) {
+            let closest = null;
+            let closestDist = Infinity;
+            for (const enemy of game.enemies) {
+                const dx = enemy.x - this.x;
+                const dy = enemy.y - this.y;
+                const d = Math.sqrt(dx * dx + dy * dy);
+                if (d < closestDist) {
+                    closestDist = d;
+                    closest = enemy;
+                }
+            }
+            if (closest) {
+                const dx = closest.x - this.x;
+                const dy = closest.y - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist > 0) {
+                    const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                    const turnRate = 0.08;
+                    this.vx += (dx / dist) * speed * turnRate;
+                    this.vy += (dy / dist) * speed * turnRate;
+                    // 保持速度恒定
+                    const newSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                    if (newSpeed > 0) {
+                        this.vx = (this.vx / newSpeed) * speed;
+                        this.vy = (this.vy / newSpeed) * speed;
+                    }
+                }
+            }
+        }
+
         super.update();
         this.lifeTime--;
 
@@ -1648,6 +2241,146 @@ class Bullet extends Entity {
                 ctx.fillStyle = this.color;
                 ctx.fillRect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
                 break;
+
+            case 'bull': {
+                // 牛的像素单位
+                const bs = 4;
+                const bpx = Math.floor(this.x - 10);
+                const bpy = Math.floor(this.y - 8);
+                // 身体(棕色)
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(bpx + bs * 1, bpy + bs * 1, bs * 3, bs * 2.5);
+                // 头
+                ctx.fillStyle = '#92400e';
+                ctx.fillRect(bpx + bs * 3.5, bpy + bs * 1, bs * 1.5, bs * 2);
+                // 牛角
+                ctx.fillStyle = '#fbbf24';
+                ctx.fillRect(bpx + bs * 4, bpy + bs * 0, bs * 0.5, bs * 1);
+                ctx.fillRect(bpx + bs * 4.5, bpy + bs * 0, bs * 0.5, bs * 1);
+                // 眼睛
+                ctx.fillStyle = '#ef4444';
+                ctx.fillRect(bpx + bs * 4, bpy + bs * 1.3, bs * 0.4, bs * 0.4);
+                // 脚
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(bpx + bs * 1.2, bpy + bs * 3.2, bs * 0.6, bs * 1);
+                ctx.fillRect(bpx + bs * 3, bpy + bs * 3.2, bs * 0.6, bs * 1);
+                // 尘土特效
+                ctx.globalAlpha = 0.4;
+                ctx.fillStyle = '#d4a574';
+                ctx.fillRect(bpx - bs * 0.5, bpy + bs * 3, bs * 1, bs * 0.8);
+                ctx.fillRect(bpx - bs * 1, bpy + bs * 2.5, bs * 0.6, bs * 0.6);
+                ctx.globalAlpha = 1;
+                break;
+            }
+
+            case 'wild_beast': {
+                // 野兽(狼形)
+                const ws = 3;
+                const wpx = Math.floor(this.x - 8);
+                const wpy = Math.floor(this.y - 6);
+                ctx.fillStyle = '#65a30d';
+                ctx.fillRect(wpx + ws * 1, wpy + ws * 1, ws * 3, ws * 2);
+                ctx.fillStyle = '#4d7c0f';
+                ctx.fillRect(wpx + ws * 3, wpy + ws * 0.5, ws * 2, ws * 1.5);
+                // 耳朵
+                ctx.fillRect(wpx + ws * 4, wpy - ws * 0.3, ws * 0.5, ws * 0.8);
+                ctx.fillRect(wpx + ws * 4.5, wpy - ws * 0.3, ws * 0.5, ws * 0.8);
+                // 眼
+                ctx.fillStyle = '#facc15';
+                ctx.fillRect(wpx + ws * 3.5, wpy + ws * 1, ws * 0.4, ws * 0.4);
+                // 尾巴
+                ctx.fillStyle = '#65a30d';
+                ctx.fillRect(wpx - ws * 0.5, wpy + ws * 1.5, ws * 1.5, ws * 0.5);
+                break;
+            }
+
+            case 'holy_orb': {
+                // 圣光球 - 金色发光
+                ctx.shadowBlur = 12;
+                ctx.shadowColor = '#facc15';
+                ctx.fillStyle = '#facc15';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 0.6, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 0.25, 0, Math.PI * 2);
+                ctx.fill();
+                // 十字光芒
+                ctx.strokeStyle = 'rgba(250, 204, 21, 0.5)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(this.x - this.size, this.y);
+                ctx.lineTo(this.x + this.size, this.y);
+                ctx.moveTo(this.x, this.y - this.size);
+                ctx.lineTo(this.x, this.y + this.size);
+                ctx.stroke();
+                break;
+            }
+
+            case 'homing': {
+                // 追踪弹 - 紫色尾迹
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 0.5, 0, Math.PI * 2);
+                ctx.fill();
+                // 拖尾
+                ctx.globalAlpha = 0.4;
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(this.x - this.vx * 1.5, this.y - this.vy * 1.5);
+                ctx.lineTo(this.x, this.y);
+                ctx.stroke();
+                ctx.globalAlpha = 0.2;
+                ctx.beginPath();
+                ctx.moveTo(this.x - this.vx * 3, this.y - this.vy * 3);
+                ctx.lineTo(this.x - this.vx * 1.5, this.y - this.vy * 1.5);
+                ctx.stroke();
+                ctx.globalAlpha = 1;
+                break;
+            }
+
+            case 'shuriken': {
+                // 手里剑 - 旋转的星形
+                const rot = Date.now() / 50;
+                ctx.translate(this.x, this.y);
+                ctx.rotate(rot);
+                ctx.fillStyle = '#94a3b8';
+                // 四角星
+                for (let j = 0; j < 4; j++) {
+                    ctx.rotate(Math.PI / 2);
+                    ctx.fillRect(-1, -this.size, 2, this.size);
+                }
+                ctx.fillStyle = '#e2e8f0';
+                ctx.fillRect(-2, -2, 4, 4);
+                break;
+            }
+
+            case 'iai_visual': {
+                // 居合斩特效 - 长光线
+                const progress = 1 - this.lifeTime / 10;
+                ctx.globalAlpha = 0.8 * (this.lifeTime / 10);
+                ctx.strokeStyle = '#dc2626';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.moveTo(this.originX, this.originY);
+                const endX = this.originX + Math.cos(this.slashAngle) * this.slashRange * progress;
+                const endY = this.originY + Math.sin(this.slashAngle) * this.slashRange * progress;
+                ctx.lineTo(endX, endY);
+                ctx.stroke();
+                // 白光内层
+                ctx.globalAlpha = 0.5 * (this.lifeTime / 10);
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(this.originX, this.originY);
+                ctx.lineTo(endX, endY);
+                ctx.stroke();
+                break;
+            }
 
             default:
                 super.draw(ctx);
@@ -2005,21 +2738,60 @@ class Game {
 
     renderClassSelection() {
         const container = document.getElementById('classCards');
+        const preview = document.getElementById('classPreview');
         container.innerHTML = '';
+
+        // 显示默认提示
+        preview.innerHTML = `
+            <div class="preview-placeholder">
+                <span class="preview-hint">← 将鼠标移到角色上查看详情</span>
+            </div>
+        `;
+
+        // 获取稀有度颜色
+        const getRarityInfo = (cls) => {
+            if (cls.from) return { label: '进阶', color: '#fbbf24', border: '#92400e' };
+            return { label: '基础', color: '#94a3b8', border: '#3d4866' };
+        };
 
         Object.values(CLASSES).forEach(cls => {
             const card = document.createElement('div');
-            card.className = 'class-card';
-            card.innerHTML = `
-                <div class="class-icon">${cls.icon}</div>
-                <h3>${cls.name}</h3>
-                <p class="class-desc">${cls.desc}</p>
-                <div class="class-stats">
-                    <div>❤ ${cls.baseHp}</div>
-                    <div>⚔ ${cls.baseDamage}</div>
-                    <div>⚡ ${cls.baseSpeed.toFixed(1)}</div>
-                </div>
-            `;
+            card.className = 'class-grid-item';
+            card.innerHTML = `<span class="grid-icon">${cls.icon}</span><span class="grid-name">${cls.name}</span>`;
+
+            // 悬停显示详情
+            card.onmouseenter = () => {
+                const rInfo = getRarityInfo(cls);
+                preview.innerHTML = `
+                    <div class="preview-card">
+                        <div class="preview-header">
+                            <div class="preview-icon">${cls.icon}</div>
+                            <div class="preview-title">
+                                <h3>${cls.name}</h3>
+                                <span class="preview-rarity" style="color:${rInfo.color}">${rInfo.label}职业</span>
+                            </div>
+                        </div>
+                        <p class="preview-desc">${cls.desc}</p>
+                        <div class="preview-skill">
+                            <span class="skill-label">⚔ 技能</span>
+                            <span class="skill-text">${cls.skill || '普通攻击'}</span>
+                        </div>
+                        <div class="preview-stats">
+                            <div class="stat-item"><span class="stat-icon">❤</span> 生命 <span class="stat-val">${cls.baseHp}</span></div>
+                            <div class="stat-item"><span class="stat-icon">⚔</span> 攻击 <span class="stat-val">${cls.baseDamage}</span></div>
+                            <div class="stat-item"><span class="stat-icon">⚡</span> 速度 <span class="stat-val">${cls.baseSpeed.toFixed(1)}</span></div>
+                        </div>
+                        ${cls.advances ? `<div class="preview-advance">📈 可进阶: ${cls.advances.map(a => ADVANCED_CLASSES[a]?.name || a).join('、')}</div>` : ''}
+                        ${cls.from ? `<div class="preview-from">🔗 进阶自: ${Object.values(CLASSES).find(c => c.advances?.includes(cls.id))?.name || '?'}</div>` : ''}
+                        <button class="btn-select-class" id="selectClassBtn">选择此角色</button>
+                    </div>
+                `;
+                document.getElementById('selectClassBtn').onclick = () => this.selectClass(cls);
+                // 高亮当前卡片
+                container.querySelectorAll('.class-grid-item').forEach(c => c.classList.remove('hovered'));
+                card.classList.add('hovered');
+            };
+
             card.onclick = () => this.selectClass(cls);
             container.appendChild(card);
         });
@@ -2289,6 +3061,11 @@ class Game {
                         const dmgColor = isCrit ? '#fbbf24' : '#fff';
                         this.damageTexts.push(new DamageText(enemy.x, enemy.y - 10, Math.floor(damage).toString(), dmgColor, isCrit));
 
+                        // 圣光弹命中回血
+                        if (bullet.healOnHit && this.player) {
+                            this.player.heal(bullet.healOnHit);
+                        }
+
                         if (enemy.takeDamage(damage)) {
                             // 击杀特效粒子
                             for (let k = 0; k < 8; k++) {
@@ -2323,8 +3100,12 @@ class Game {
                             }
                         }
 
-                        this.bullets.splice(i, 1);
-                        break;
+                        // 穿透子弹不移除，否则移除
+                        if (!bullet.canPierce) {
+                            this.bullets.splice(i, 1);
+                            break;
+                        }
+                        // 穿透子弹继续检测下一个敌人
                     }
                 }
             } else {

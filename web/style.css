@@ -39,7 +39,7 @@ body {
     display: flex;
 }
 
-/* 主菜�?*/
+/* 主菜�?*/
 #mainMenu {
     background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
 }
@@ -311,7 +311,7 @@ body {
     font-size: 0.95rem;
 }
 
-/* 休息�?*/
+/* 休息�?*/
 .rest-section {
     margin-bottom: 2.5rem;
 }
@@ -499,7 +499,7 @@ body {
     }
 }
 
-/* 响应�?*/
+/* 响应�?*/
 @media (max-width: 768px) {
     .game-title {
         font-size: 3rem;
@@ -521,19 +521,22 @@ body {
     }
 }
 
-/* ְҵѡ����� */
-#classSelectScreen, #classAdvanceScreen {
+/* ְҵѡ����� */
+#classSelectScreen,
+#classAdvanceScreen {
     background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
 }
 
-.class-select-content, .class-advance-content {
+.class-select-content,
+.class-advance-content {
     text-align: center;
     max-width: 1200px;
     width: 90%;
     animation: fadeIn 0.5s;
 }
 
-.class-select-content h2, .class-advance-content h2 {
+.class-select-content h2,
+.class-advance-content h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
     color: var(--primary);
@@ -599,6 +602,195 @@ body {
     color: var(--success);
     font-size: 0.9rem;
     margin-left: 0.3rem;
+}
+
+/* ===== 新版角色选择网格布局 ===== */
+.class-select-layout {
+    display: flex;
+    gap: 2rem;
+    width: 95%;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+.class-preview-panel {
+    flex: 0 0 320px;
+    min-height: 380px;
+    background: var(--bg-card);
+    border: 2px solid var(--tertiary);
+    border-radius: 16px;
+    padding: 1.5rem;
+    position: sticky;
+    top: 2rem;
+}
+
+.preview-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 340px;
+    color: var(--text-dim);
+    font-size: 1rem;
+}
+
+.preview-card {
+    animation: fadeIn 0.2s;
+}
+
+.preview-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.preview-icon {
+    font-size: 3.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preview-title h3 {
+    font-size: 1.6rem;
+    color: var(--primary);
+    margin-bottom: 0.2rem;
+}
+
+.preview-rarity {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.preview-desc {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.preview-skill {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.skill-label {
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+}
+
+.skill-text {
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+.preview-stats {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.stat-icon {
+    font-size: 1.1rem;
+}
+
+.stat-val {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.preview-advance,
+.preview-from {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 0.6rem;
+    padding: 0.4rem 0;
+}
+
+.btn-select-class {
+    width: 100%;
+    padding: 0.9rem;
+    margin-top: 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-select-class:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(91, 141, 239, 0.4);
+}
+
+.class-grid-panel {
+    flex: 1;
+}
+
+.class-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.6rem;
+}
+
+.class-grid-item {
+    background: var(--bg-card);
+    border: 2px solid var(--tertiary);
+    border-radius: 10px;
+    padding: 0.6rem 0.3rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.class-grid-item:hover,
+.class-grid-item.hovered {
+    border-color: var(--primary);
+    background: rgba(91, 141, 239, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(91, 141, 239, 0.3);
+}
+
+.grid-icon {
+    font-size: 2rem;
+}
+
+.grid-name {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    font-weight: 600;
+}
+
+.class-grid-item.hovered .grid-name {
+    color: var(--primary);
 }
 
 .advance-card {
